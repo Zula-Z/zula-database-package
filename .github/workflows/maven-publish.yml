@@ -1,12 +1,8 @@
-name: Publish Database Library
+name: Publish Zula Database Packages to GitHub Packages
 
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'zula-database-library/**'
-  release:
-    types: [ published ]
 
 jobs:
   publish:
@@ -16,18 +12,14 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 11
+      - uses: actions/checkout@v4
+      - name: Set up Java for deployment to GitHub Packages
         uses: actions/setup-java@v4
         with:
           java-version: '11'
           distribution: 'temurin'
-          server-id: github
-          settings-path: ${{ github.workspace }}
 
-      - name: Publish Database Library
+      - name: Publish with Maven
         run: |
           cd zula-database-library
           mvn -B clean deploy -DskipTests
