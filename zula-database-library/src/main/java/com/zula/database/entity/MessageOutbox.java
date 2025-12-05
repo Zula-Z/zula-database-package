@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 /**
  * POJO representation of the message_outbox table for use with JDBI.
- * JPA annotations removed — mapping is handled by JDBI mappers (e.g. RegisterBeanMapper).
  */
 public class MessageOutbox extends BaseEntity {
 

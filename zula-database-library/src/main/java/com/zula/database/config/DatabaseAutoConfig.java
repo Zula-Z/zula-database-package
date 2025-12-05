@@ -34,7 +34,7 @@ public class DatabaseAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public DatabaseManager databaseManager(DatabaseProperties properties) {
-        return new DatabaseManager(properties);
+    public DatabaseManager databaseManager(DatabaseProperties properties, Jdbi jdbi) {
+        return new DatabaseManager(properties, jdbi);
     }
 }

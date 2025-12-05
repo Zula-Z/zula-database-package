@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 /**
  * POJO representation of the message_inbox table for use with JDBI.
- * JPA annotations removed — mapping is handled by JDBI mappers (e.g. RegisterBeanMapper).
  */
 public class MessageInbox extends BaseEntity {
 

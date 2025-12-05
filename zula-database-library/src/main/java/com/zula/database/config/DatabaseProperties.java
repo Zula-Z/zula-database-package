@@ -8,6 +8,8 @@ public class DatabaseProperties {
     private String schemaPrefix = "zula";
     private boolean enableAuditing = true;
     private boolean enableFlyway = true;
+    private boolean autoCreateQueueSchema = true;
+    private String queueSchemaSuffix = "queue";
 
     public boolean isAutoCreateSchema() { return autoCreateSchema; }
     public void setAutoCreateSchema(boolean autoCreateSchema) { this.autoCreateSchema = autoCreateSchema; }
@@ -20,4 +22,20 @@ public class DatabaseProperties {
 
     public boolean isEnableFlyway() { return enableFlyway; }
     public void setEnableFlyway(boolean enableFlyway) { this.enableFlyway = enableFlyway; }
+
+    public boolean isAutoCreateQueueSchema() {
+        return autoCreateQueueSchema;
+    }
+
+    public void setAutoCreateQueueSchema(boolean autoCreateQueueSchema) {
+        this.autoCreateQueueSchema = autoCreateQueueSchema;
+    }
+
+    public String getQueueSchemaSuffix() {
+        return queueSchemaSuffix;
+    }
+
+    public void setQueueSchemaSuffix(String queueSchemaSuffix) {
+        this.queueSchemaSuffix = queueSchemaSuffix;
+    }
 }
