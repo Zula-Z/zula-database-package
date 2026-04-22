@@ -5,7 +5,7 @@ import org.jdbi.v3.core.Jdbi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
@@ -92,6 +92,10 @@ public class DatabaseManager {
         });
 
         System.out.println("Zula Database Manager ensured queue schema exists: " + schema + " at " + LocalDateTime.now());
+    }
+
+    protected Jdbi getJdbi() {
+        return jdbi;
     }
 
     private String normalizeName(String raw) {

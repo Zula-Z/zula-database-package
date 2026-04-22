@@ -4,12 +4,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "zula.database")
 public class DatabaseProperties {
+    private String provider = "postgres";
     private boolean autoCreateSchema = true;
     private String schemaPrefix = "zula";
     private boolean enableAuditing = true;
     private boolean enableFlyway = true;
     private boolean autoCreateQueueSchema = true;
     private String queueSchemaSuffix = "queue";
+
+    public String getProvider() { return provider; }
+    public void setProvider(String provider) { this.provider = provider; }
 
     public boolean isAutoCreateSchema() { return autoCreateSchema; }
     public void setAutoCreateSchema(boolean autoCreateSchema) { this.autoCreateSchema = autoCreateSchema; }
