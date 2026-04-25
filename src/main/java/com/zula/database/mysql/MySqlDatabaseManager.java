@@ -30,6 +30,10 @@ public class MySqlDatabaseManager extends DatabaseManager {
                     "target_service VARCHAR(100) NOT NULL," +
                     "payload TEXT NOT NULL," +
                     "status VARCHAR(50) NOT NULL," +
+                    "initiator_type VARCHAR(50) NULL," +
+                    "initiator_id VARCHAR(255) NULL," +
+                    "initiator_name VARCHAR(255) NULL," +
+                    "initiator_payload TEXT NULL," +
                     "sent_at DATETIME NULL," +
                     "retry_count INT DEFAULT 0," +
                     "created_at DATETIME DEFAULT CURRENT_TIMESTAMP," +
@@ -43,10 +47,23 @@ public class MySqlDatabaseManager extends DatabaseManager {
                     "source_service VARCHAR(100) NOT NULL," +
                     "payload TEXT NOT NULL," +
                     "status VARCHAR(50) NOT NULL," +
+                    "initiator_type VARCHAR(50) NULL," +
+                    "initiator_id VARCHAR(255) NULL," +
+                    "initiator_name VARCHAR(255) NULL," +
+                    "initiator_payload TEXT NULL," +
                     "processed_at DATETIME NULL," +
                     "created_at DATETIME DEFAULT CURRENT_TIMESTAMP," +
                     "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP" +
                     ") ENGINE=InnoDB");
+
+            ensureColumn(handle, outboxTable, "initiator_type", "VARCHAR(50) NULL");
+            ensureColumn(handle, outboxTable, "initiator_id", "VARCHAR(255) NULL");
+            ensureColumn(handle, outboxTable, "initiator_name", "VARCHAR(255) NULL");
+            ensureColumn(handle, outboxTable, "initiator_payload", "TEXT NULL");
+            ensureColumn(handle, inboxTable, "initiator_type", "VARCHAR(50) NULL");
+            ensureColumn(handle, inboxTable, "initiator_id", "VARCHAR(255) NULL");
+            ensureColumn(handle, inboxTable, "initiator_name", "VARCHAR(255) NULL");
+            ensureColumn(handle, inboxTable, "initiator_payload", "TEXT NULL");
 
             try {
                 handle.execute("CREATE INDEX " + outboxIndex + " ON " + outboxTable + " (status)");

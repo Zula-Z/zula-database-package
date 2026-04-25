@@ -69,6 +69,10 @@ public class DatabaseManager {
                     "target_service VARCHAR(100) NOT NULL," +
                     "payload TEXT NOT NULL," +
                     "status VARCHAR(50) NOT NULL," +
+                    "initiator_type VARCHAR(50)," +
+                    "initiator_id VARCHAR(255)," +
+                    "initiator_name VARCHAR(255)," +
+                    "initiator_payload TEXT," +
                     "sent_at TIMESTAMP," +
                     "retry_count INTEGER DEFAULT 0," +
                     "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
@@ -82,10 +86,23 @@ public class DatabaseManager {
                     "source_service VARCHAR(100) NOT NULL," +
                     "payload TEXT NOT NULL," +
                     "status VARCHAR(50) NOT NULL," +
+                    "initiator_type VARCHAR(50)," +
+                    "initiator_id VARCHAR(255)," +
+                    "initiator_name VARCHAR(255)," +
+                    "initiator_payload TEXT," +
                     "processed_at TIMESTAMP," +
                     "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
                     "updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                     ")");
+
+            ensureColumn(handle, outboxTable, "initiator_type", "VARCHAR(50)");
+            ensureColumn(handle, outboxTable, "initiator_id", "VARCHAR(255)");
+            ensureColumn(handle, outboxTable, "initiator_name", "VARCHAR(255)");
+            ensureColumn(handle, outboxTable, "initiator_payload", "TEXT");
+            ensureColumn(handle, inboxTable, "initiator_type", "VARCHAR(50)");
+            ensureColumn(handle, inboxTable, "initiator_id", "VARCHAR(255)");
+            ensureColumn(handle, inboxTable, "initiator_name", "VARCHAR(255)");
+            ensureColumn(handle, inboxTable, "initiator_payload", "TEXT");
 
             handle.execute("CREATE INDEX IF NOT EXISTS " + outboxIndex + " ON " + outboxTable + "(status)");
             handle.execute("CREATE INDEX IF NOT EXISTS " + inboxIndex + " ON " + inboxTable + "(status)");
@@ -96,6 +113,13 @@ public class DatabaseManager {
 
     protected Jdbi getJdbi() {
         return jdbi;
+    }
+
+    protected void ensureColumn(org.jdbi.v3.core.Handle handle, String tableName, String columnName, String definition) {
+        try {
+            handle.execute("ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + definition);
+        } catch (Exception ignored) {
+        }
     }
 
     private String normalizeName(String raw) {
